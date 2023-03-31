@@ -20,35 +20,33 @@ df['LaterID'] = df['StAgtCd'].bfill().shift(-1)
 
 for row in df.itertuples(index=False):
     allowance = 15
-    diff = row.miles - row.allowance
+    diff = row.miles - allowance
     result = row.miles - diff
 
-    if row.Time == '09:00:00' and row.Later == '09:00:00':
-        print(f'Home to {row.Name} ({row.StAgtCd}) {row.miles} miles - {row.allowance} miles = {diff}')
+    if row.Time == '09:00:00':
+        print(f'Home to {row.Name} ({row.StAgtCd}) {row.miles} miles - {allowance} miles = {diff}')
         
         if diff < 0:
-            diff = abs(diff)
+            diff = 0
             result = row.miles - diff
             print(f'{row.Name} ({row.StAgtCd}) to Home {row.miles} miles - {diff} miles = {result}')
-        else:
-            if diff > 0:
-                diff = -abs(diff)
-                result = row.miles - diff
-                print(f'{row.Name} ({row.StAgtCd}) to Home {row.miles} miles - {diff} miles = {result}')
-            else:
-                print(f'{row.Name} ({row.StAgtCd}) to Home {row.miles} miles - {diff} miles = {result}')
 
-    if row.Time == '09:00:00':
-        if row.Later == '13:00:00':
-            print(f'Home to {row.Name} ({row.StAgtCd}) {row.miles} miles - {row.allowance} miles = {diff}')
-            print(f'{row.Name} ({row.StAgtCd}) to {row.LaterAgent} ({row.LaterID}) ? miles - ? miles = ?')
+    if row.Time == '09:00:00' and row.Later == '13:00:00':
+        print(f'{row.Name} ({row.StAgtCd}) to {row.LaterAgent} ({row.LaterID}) ? miles - ? miles = ?')
+
+    if row.Time == '13:00:00' and row.Earlier == '13:00:00':
+        print(f'Home to {row.Name} ({row.StAgtCd}) {row.miles} miles - {diff} miles = {result}')
 
     if row.Time == '13:00:00':
         diff = 0
         result = row.miles - diff
         print(f'{row.Name} ({row.StAgtCd}) to Home {row.miles} miles - {diff} miles = {result}')
 
-    
+    if row.Time == '09:00:00' and row.Later == '09:00:00':
+        diff = 0
+        result = row.miles - diff
+        print(f'{row.Name} ({row.StAgtCd}) to Home {row.miles} miles - {diff} miles = {result}')
+
     df.sort_values(by=['Date', 'Time'])
 
 
