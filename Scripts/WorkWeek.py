@@ -16,11 +16,9 @@ df = df.drop(['InstallerName', 'Level3UserID', 'ADDRESS1', 'SUITE', 'City', 'Sta
 
 #reorganizes columns and only keep the ones we're using adding allowance and miles columns
 df.insert(7, 'miles', "1")
-df.insert(8, 'allowance', "1")
-df.insert(9, 'diff', "1")
-df.insert(10, 'POC', "none")
+df.insert(8, 'POC', "none")
 
-df = df[['EmployeeID', 'StAgtCd', 'Name', 'PHONE1', 'Address', 'Date', 'Time', 'miles', 'allowance', 'diff', 'POC', 'WrkstationCount', 'HP M507XLANCount', 'HP84G7Count', 'UPSBoxCount', 'HPG5USBCDockCount', 'ReturnStockOnlyCount', 'InstallDuration']]
+df = df[['EmployeeID', 'StAgtCd', 'Name', 'PHONE1', 'Address', 'Date', 'Time', 'miles', 'POC', 'WrkstationCount', 'HP M507XLANCount', 'HP84G7Count', 'UPSBoxCount', 'HPG5USBCDockCount', 'ReturnStockOnlyCount', 'InstallDuration']]
 df.to_excel("/home/swiggityyy/Desktop/production.xlsx", sheet_name = "Sheet1", index=False)
 
 print(df)
