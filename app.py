@@ -1,4 +1,5 @@
-from Scripts import WorkWeek, Automation, Mileage
+from . import Automation
+from Scripts import WorkWeek, Mileage
 
 def main():
     print('HelloWorld!')
